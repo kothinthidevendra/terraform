@@ -1,0 +1,11 @@
+output "vpc_id" {
+  value = module.vpc.vpc_id
+}
+
+/* output "azs_info" {
+    value = slice(module.vpc.azs_info.names, 0, 2)
+} */
+
+output "azs_info" {
+  value = slice(module.vpc.azs_info.names, 0, 2)
+}

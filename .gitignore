@@ -1,0 +1,27 @@
+# Core Terraform directories
+.terraform/
+
+# Hide or ignore local state files (Use a remote backend like S3, GCS, or Terraform Cloud instead)
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Exclude all variable files which contain secrets and sensitive credentials
+*.tfvars
+*.tfvars.json
+
+# Exclude override files as they are typically used for local-only testing
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# Ignore terraform plan outputs (as they can contain secrets in plaintext)
+*tfplan*

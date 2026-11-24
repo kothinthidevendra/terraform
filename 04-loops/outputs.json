@@ -1,0 +1,7 @@
+{
+  "instances_info": {
+    "sensitive": false,
+    "type": "string",
+    "value": "aws_instance.roboshop"
+  }
+}
