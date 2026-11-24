@@ -1,7 +1,7 @@
 resource "aws_instance" "mongodb" {
-  ami = local.ami_id
   instance_type = "t3.micro"
-  subnet_id = local.database_subnet_ids
+  ami = "data.aws_ami.joindevops.id"
+  subnet_id = local.database_subnet_id
   vpc_secuirty_group_ids = [local.mongodb_sg_id]
   tags = local.common_tags
 }
@@ -15,14 +15,13 @@ resource "terraform_data" "bootstrap" {
     type = "ssh"
     user = "ec2-user"
     password = "DevOps321"
-    host = aws_instance.mongodb.private_ip
+    host = "aws_instance.mongodb.private_ip"
   }
 
   provisioner "file" {
     source = "${path.module}/bootstrap.sh"
     destination = "/tmp/bootstrap.sh"
   }
-
 
   provisioner "remote-exec" {
     inline = [
@@ -31,3 +30,5 @@ resource "terraform_data" "bootstrap" {
     ]
   }
 }
+
+
