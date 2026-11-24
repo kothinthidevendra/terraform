@@ -18,21 +18,12 @@ resource "aws_iam_role" "mysql" {
   })
 
   tags = merge(
-    local.common_tags
+    local.common_tags,
     {
         Name = "${var.project}-${var.environment}-mysql"
     }
   )
 }
-
-resource "aws_iam_policy" "mysql" {
-  name = "${var.project}-${var.environment}-mysql"
-  description = "IAM polocy to attach Roboshop MySQL instance"
-
-  polo
-
-}
-
 
 resource "aws_iam_policy" "mysql" {
   name        = "${var.project}-${var.environment}-mysql"
