@@ -44,11 +44,11 @@ resource "aws_instance" "redis" {
   )
 }
 
-resource "terraform_data" "bootstrap" {
+resource "terraform_data" "redis" {
   triggers_replace = [
     aws_instance.redis.id
   ]
-
+}
   connection {
     type = "ssh"
     user = "ec2-user"
