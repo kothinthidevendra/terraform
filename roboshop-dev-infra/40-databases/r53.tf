@@ -1,4 +1,4 @@
-resource "aws_route_53_record" "mongodb" {
+resource "aws_route53_record" "mongodb" {
   zone_id = var.zone.id
   name = "mongodb-${var.environment}.${var.domain_name}"
   type = "A"
@@ -7,7 +7,7 @@ resource "aws_route_53_record" "mongodb" {
   allow_overwrite = true
 }
 
-resource "aws_route_53_reord" "redis" {
+resource "aws_route53_reord" "redis" {
   zone_id = var.zone_id
   name = "redis.${var.environment}.${var.domain_name}"
   type = "A"
