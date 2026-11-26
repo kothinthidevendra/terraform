@@ -39,8 +39,8 @@ resource "aws_ec2_instance_state" "catalogue" {
 
 resource "aws_ami" "catalogue" {
   name                = "${local.common_tags.Name}-${var.app_version}-${aws_instance.catalogue.id}"
-  source_instance_id = aws_instance.catalogue.id
-  depends_on = [aws_ec2_instance_state.catalogue]
+   source_instance_id = aws_instance.catalogue.id
+   depends_on = [aws_ec2_instance_state.catalogue]
   tags = merge(
     local.common_tags,
     {
