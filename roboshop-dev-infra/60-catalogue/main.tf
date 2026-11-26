@@ -156,7 +156,6 @@ resource "aws_autoscaling_policy" "catalogue" {
 
     target_value = 75
   }
-  cooldown = 120
 }
 
 # Forward action
