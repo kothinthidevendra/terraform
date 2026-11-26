@@ -30,3 +30,22 @@ resource "terraform_data" "bootstrap" {
     ]
   }
 }
+
+resource "aws_ec2_instance_state" "catalogue" {
+  instance_id = aws_instance.catalogue.id
+  state       = "stopped"
+  depends_on = [terraform_data.bootstrap]
+}
+
+resource "aws_ami" "catalogue" {
+  name                = "${local.common.Name}-${var.app_version}-${aws_instance.catalogue.id}"
+  source_instance_id = aws_instance.catalogue.id
+  depends_on = [aws_ec2_instance_state.catalogue]
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "${local.common.Name}-${var.app_version}-${aws_instance.catalogue.id}"
+    }
+  )
+  }
+
