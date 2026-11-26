@@ -58,7 +58,6 @@ resource "aws_launch_template" "catalogue" {
   instance_type = "t3.micro"
   vpc_security_group_ids = [local.catalogue_sg_id]
   update_default_version = true
-
   tag_specifications {
     resource_type = "instance"
 
@@ -67,6 +66,7 @@ resource "aws_launch_template" "catalogue" {
       Name = local.common_tags.Name
     }
   }
+}
 
   tag_specifications {
     resource_type = "volume"
@@ -76,5 +76,5 @@ resource "aws_launch_template" "catalogue" {
       Name = local.common_tags.Name
     }
   }
-}
+
 
