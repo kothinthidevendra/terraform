@@ -83,21 +83,22 @@ resource "aws_launch_template" "catalogue" {
 }
 
 resource "aws_lb_target_group" "catalogue" {
-  name     = local.common_tags.Name
+  name     = "${local.common_name}-catalogue"
   port     = 8080
   protocol = "HTTP"
   vpc_id   = local.vpc_id
   deregistration_delay = 10
+
   health_check {
     healthy_threshold = 2
     interval = 10
     matcher = "200-299"
     path = "/health"
     port = 8080
-    protocol = "http"
+    protocol = "HTTP"
     timeout = 5
     unhealthy_threshold = 2
-     } 
+  }
 }
 
 
@@ -173,5 +174,16 @@ resource "aws_lb_listener_rule" "catalogue" {
     host_header {
       values = ["catalogue.backend-alb-${var.environment}.${var.domain_name}"]
     }
+  }
+}
+
+resource "terraform_data" "catalogue_delete" {
+  triggers_replace = [
+    aws_instance.catalogue.id
+  ]
+  depends_on = [aws_autoscaling_policy.catalogue]
+
+  provisioner "local-exec" {
+    command = "aws ec2 terminate-instances --instance-ids ${aws_instance.catalogue.id}"
   }
 }
