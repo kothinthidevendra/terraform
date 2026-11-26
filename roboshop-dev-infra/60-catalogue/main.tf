@@ -52,29 +52,33 @@ resource "aws_ami_from_instance" "catalogue" {
   }
 
 resource "aws_launch_template" "catalogue" {
-  name = "${local.common_tags.Name}"
-  image_id = aws_ami_from_instance.catalogue.id
+  name                                 = local.common_tags.Name
+  image_id                             = aws_ami_from_instance.catalogue.id
   instance_initiated_shutdown_behavior = "terminate"
-  instance_type = "t3.micro"
-  vpc_security_group_ids = [local.catalogue_sg_id]
-  update_default_version = true
+  instance_type                        = "t3.micro"
+  vpc_security_group_ids               = [local.catalogue_sg_id]
+  update_default_version               = true
+
   tag_specifications {
     resource_type = "instance"
 
-    tags = local.common_tags
-    {
-      Name = local.common_tags.Name
-    }
+    tags = merge(
+      local.common_tags,
+      {
+        Name = local.common_tags.Name
+      }
+    )
   }
-
 
   tag_specifications {
     resource_type = "volume"
 
-    tags = local.common_tags
-    {
-      Name = local.common_tags.Name
-    }
+    tags = merge(
+      local.common_tags,
+      {
+        Name = local.common_tags.Name
+      }
+    )
   }
 }
 
