@@ -66,7 +66,7 @@ resource "aws_launch_template" "catalogue" {
       Name = local.common_tags.Name
     }
   }
-}
+
 
   tag_specifications {
     resource_type = "volume"
@@ -76,5 +76,5 @@ resource "aws_launch_template" "catalogue" {
       Name = local.common_tags.Name
     }
   }
-
+}
 
